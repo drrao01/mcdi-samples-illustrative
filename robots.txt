@@ -1,0 +1,3 @@
+# This site is intentionally excluded from search engines.
+User-agent: *
+Disallow: /
