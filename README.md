@@ -34,6 +34,11 @@ sample; they are not a report of results.
 `system` carries the developer instructions, including the ones added mid-conversation. Turn
 numbering is zero-based.
 
+**Rubrics are graded on the final turn.** Each one checks the last response — both that it is
+correct on its own terms and that it still honours developer instructions set earlier in the
+conversation. `num_turn` records which turn introduced the instruction a rubric enforces, not where
+it is checked. Rubrics that grade an intermediate turn are optional and none are included here.
+
 Every rubric is written so that a model doing the right thing passes it. Where a rubric can stop
 applying — because a later instruction replaced it, or because the turn being graded does not touch
 it — the rubric says so explicitly, so correct behaviour is never scored as a failure.
