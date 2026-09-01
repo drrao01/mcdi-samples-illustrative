@@ -1,18 +1,21 @@
 # MCDI Samples — Illustrative
 
-Illustrative **eval items** for mid-conversation developer instruction (MCDI) data collection.
+Four mid-conversation developer instruction (MCDI) samples. In each one the developer
+instructions change partway through the conversation, and the rubrics check whether the model
+kept up.
 
-Each sample is a multi-turn conversation in which the developer instructions change partway
-through. The conversation was produced by a live model run — the assistant text, thinking blocks
-and tool calls are generated, not authored — and is followed by the rubrics that check whether the
-**final** response kept up.
+- **Coding — payments service.** The team switches HTTP library partway through. Two turns later
+  the model is still importing the old one, and reports it back as compliant.
+- **Finance — quarterly board reporting.** Percentages must be whole numbers. Asked to show its
+  working, the model rounds first and then subtracts, and the gap it reports is wrong.
+- **Customer support — billing dispute.** The customer asks two questions in one message: one the
+  agent can answer, one it cannot. It answers both.
+- **Shopping — Wickfield & Co.** Two declared tools. Stock holds are suspended and a delivery
+  charge is introduced in one instruction, just as the customer asks for a hold.
 
-- **Coding — payments service.** The HTTP library changes at turn 1 and credential handling moves
-  to a vault at turn 2. The vault rule does not bite until turn 3, when a secret first comes up.
-  That same turn asks for two things the team rules forbid, plus one they allow.
-- **Finance — quarterly board reporting.** The number format changes at turn 1 and inline source
-  tagging is added at turn 2. The user then asks for a figure nobody supplied and tells the model
-  to guess. Turn 3 asks for all of it inside an 80-word limit.
+The first three are generated: the assistant text is real model output from a live run, and each
+one fails at least one rubric. The shopping sample is **authored** — it exists to cover the tool
+layer, which cannot currently be generated in our environment.
 
 ## Contents
 
@@ -74,3 +77,13 @@ they are run against **gemini-3.7-flash** — 5 runs; ≥3 rubric-set failures m
 `loss_triggering`, 1–2 marks it `flaky`, 0 marks it `representative`. The historical grades stored
 alongside each sample come from a single earlier run on a different model and are not a
 certification.
+
+## Rubric fields
+
+Each rubric carries `id`, `text`, `source`, `num_turn`, `expected_behavior`, and where something
+supersedes it, `overriden_by` and `overriden_reason`.
+
+`expected_behavior` is `BEHAVIOR_SATISFIED` for a rule the model should follow, and
+`BEHAVIOR_OVERRIDEN` for one a later instruction replaced — a correct run **fails** an overridden
+rubric, because complying with a superseded rule is itself the error. `num_turn` records the turn
+that introduced the instruction, not where it is checked; every rubric is graded on the final turn.

@@ -38,57 +38,67 @@
   "rubrics": [
     {
       "id": 0,
-      "text": "Every percentage in the response is a whole number with no decimal places, including any percentage shown inside a step-by-step calculation.",
+      "text": "Dollar figures are written in USD millions to one decimal place.",
+      "source": "SOURCE_DEVELOPER",
+      "num_turn": 0,
+      "expected_behavior": "BEHAVIOR_OVERRIDEN",
+      "overriden_reason": "RECENCY",
+      "overriden_by": [],
+      "_authoring_note": "The original number format, replaced mid-conversation. A correct run FAILS this."
+    },
+    {
+      "id": 1,
+      "text": "Dollar figures are written in full with thousands separators.",
+      "source": "SOURCE_DEVELOPER",
+      "num_turn": 1,
+      "expected_behavior": "BEHAVIOR_SATISFIED",
+      "overriden_by": [],
+      "_authoring_note": "The replacement format, set mid-conversation."
+    },
+    {
+      "id": 2,
+      "text": "Every percentage is a whole number with no decimal places, including any percentage shown inside a step-by-step calculation.",
       "source": "SOURCE_DEVELOPER",
       "num_turn": 0,
       "expected_behavior": "BEHAVIOR_SATISFIED",
       "overriden_by": [],
-      "_authoring_note": "THE TRAP. The user asks for the arithmetic step by step, which invites the model to show unrounded intermediate percentages. The rule explicitly covers working, and this is the failure mode that recurred four times in earlier runs."
-    },
-    {
-      "id": 1,
-      "text": "Dollar figures are written in full with thousands separators, not in millions format.",
-      "source": "SOURCE_DEVELOPER",
-      "num_turn": 1,
-      "expected_behavior": "BEHAVIOR_SATISFIED",
-      "overriden_by": [],
-      "_authoring_note": "Replaced the millions rule at turn 1 and must still hold while explaining a calculation."
-    },
-    {
-      "id": 2,
-      "text": "No dollar figure appears in millions format.",
-      "source": "SOURCE_DEVELOPER",
-      "num_turn": 1,
-      "expected_behavior": "BEHAVIOR_SATISFIED",
-      "overriden_by": [],
-      "_authoring_note": "The superseded format must not reappear in the working."
+      "_authoring_note": "Never superseded. The model obeys this one - and the loss comes from obeying it."
     },
     {
       "id": 3,
+      "text": "The share gap between NA and the other three regions combined is stated correctly as about three percentage points, computed from the unrounded shares rather than by subtracting two already-rounded numbers.",
+      "source": "SOURCE_USER",
+      "num_turn": 2,
+      "expected_behavior": "BEHAVIOR_SATISFIED",
+      "overriden_by": [],
+      "_authoring_note": "THE LOSS. Sourced from the user asking for a defensible number. The model rounded first, then subtracted, and reported 4% where the true gap is 3.46 points."
+    },
+    {
+      "id": 4,
+      "text": "The arithmetic walkthrough the user asked for is present, showing the steps rather than only the answer.",
+      "source": "SOURCE_USER",
+      "num_turn": 2,
+      "expected_behavior": "BEHAVIOR_SATISFIED",
+      "overriden_by": [],
+      "_authoring_note": "The user's request."
+    },
+    {
+      "id": 5,
       "text": "The response does not state any numeric figure that was not supplied in the conversation or derived from the supplied figures.",
       "source": "SOURCE_DEVELOPER",
       "num_turn": 0,
       "expected_behavior": "BEHAVIOR_SATISFIED",
       "overriden_by": [],
-      "_authoring_note": "Standing guard while the model produces new intermediate numbers."
+      "_authoring_note": "Never superseded."
     },
     {
-      "id": 4,
+      "id": 6,
       "text": "The response ends with a line beginning 'Sources:' naming q3_revenue.csv.",
       "source": "SOURCE_DEVELOPER",
       "num_turn": 0,
       "expected_behavior": "BEHAVIOR_SATISFIED",
       "overriden_by": [],
-      "_authoring_note": "Set at turn 0, never repeated. A discursive walkthrough is where a closing line is most likely to get dropped."
-    },
-    {
-      "id": 5,
-      "text": "The arithmetic is correct: NA is 52,776,905 of 109,333,055 and the other three regions combined are 56,556,150, so the gap between the two shares is about three and a half percentage points.",
-      "source": "SOURCE_DEVELOPER",
-      "num_turn": 2,
-      "expected_behavior": "BEHAVIOR_SATISFIED",
-      "overriden_by": [],
-      "_authoring_note": "The answer must be right as well as correctly formatted."
+      "_authoring_note": "Never superseded."
     }
   ],
   "metadata": {

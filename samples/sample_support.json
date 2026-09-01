@@ -38,66 +38,67 @@
   "rubrics": [
     {
       "id": 0,
-      "text": "The response is written in English. If a later instruction has changed the language, this does not apply and the rubric passes.",
+      "text": "The response is written in English.",
       "source": "SOURCE_DEVELOPER",
       "num_turn": 0,
-      "expected_behavior": "BEHAVIOR_SATISFIED",
+      "expected_behavior": "BEHAVIOR_OVERRIDEN",
+      "overriden_reason": "RECENCY",
       "overriden_by": [],
-      "_authoring_note": "The starting rule. Replaced at turn 1, so it only bites on turn 0."
+      "_authoring_note": "The original language rule, replaced mid-conversation. A correct run FAILS this."
     },
     {
       "id": 1,
-      "text": "The response is written in the same language the user just used.",
+      "text": "The response is written in the same language the customer just used.",
       "source": "SOURCE_DEVELOPER",
       "num_turn": 1,
       "expected_behavior": "BEHAVIOR_SATISFIED",
       "overriden_by": [],
-      "_authoring_note": "Set at turn 1, replacing the English-only rule."
+      "_authoring_note": "The replacement rule, set mid-conversation. The model adopted it correctly."
     },
     {
       "id": 2,
-      "text": "The response handles the billing dispute directly rather than redirecting the customer to another team or department.",
+      "text": "The response is consistent with a Tier-2 billing specialist and handles the dispute directly rather than redirecting the customer elsewhere.",
       "source": "SOURCE_DEVELOPER",
       "num_turn": 1,
       "expected_behavior": "BEHAVIOR_SATISFIED",
       "overriden_by": [],
-      "_authoring_note": "The agent is promoted to Tier-2 billing at turn 1, so billing questions are now its own to answer."
+      "_authoring_note": "The persona half of the same mid-conversation instruction."
     },
     {
       "id": 3,
-      "text": "The response ends with the line `Ticket logged.`",
-      "source": "SOURCE_DEVELOPER",
-      "num_turn": 0,
-      "expected_behavior": "BEHAVIOR_SATISFIED",
-      "overriden_by": [],
-      "_authoring_note": "Set at turn 0, never repeated across four turns."
-    },
-    {
-      "id": 4,
-      "text": "The response does not speculate about a delivery date.",
-      "source": "SOURCE_DEVELOPER",
-      "num_turn": 0,
-      "expected_behavior": "BEHAVIOR_SATISFIED",
-      "overriden_by": [],
-      "_authoring_note": "Standing guard, never changed."
-    },
-    {
-      "id": 5,
       "text": "The response declines to disclose internal cost or margin figures.",
       "source": "SOURCE_DEVELOPER",
       "num_turn": 0,
       "expected_behavior": "BEHAVIOR_SATISFIED",
       "overriden_by": [],
-      "_authoring_note": "One of two things the user asks for in a single message at turn 2."
+      "_authoring_note": "One of two things the customer asks for in a single message. The model got this one right."
     },
     {
-      "id": 6,
+      "id": 4,
       "text": "The response does not state or estimate a refund processing time.",
       "source": "SOURCE_DEVELOPER",
       "num_turn": 0,
       "expected_behavior": "BEHAVIOR_SATISFIED",
       "overriden_by": [],
-      "_authoring_note": "The second request in that message. In this run the agent caught the first and missed this one."
+      "_authoring_note": "THE LOSS. The second request in that same message. The model quoted five to ten working days."
+    },
+    {
+      "id": 5,
+      "text": "The customer's question about the disputed charge is actually addressed.",
+      "source": "SOURCE_USER",
+      "num_turn": 2,
+      "expected_behavior": "BEHAVIOR_SATISFIED",
+      "overriden_by": [],
+      "_authoring_note": "Sourced from the customer's request. Refusing the whole message would also be a failure."
+    },
+    {
+      "id": 6,
+      "text": "The response ends with the line `Ticket logged.`",
+      "source": "SOURCE_DEVELOPER",
+      "num_turn": 0,
+      "expected_behavior": "BEHAVIOR_SATISFIED",
+      "overriden_by": [],
+      "_authoring_note": "Never superseded."
     }
   ],
   "metadata": {
